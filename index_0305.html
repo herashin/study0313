@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function MinutesToHours() {
+      // useState는  리액트의 기능으로 함수형 컴포넌트에서
+      // 상태를 추가하고 변경화기 위해 사용함.
+      // 컴포넌트 상태 변경을 위해 state 변수와, state 변경 함수를 제공함.
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+        // current는  선언한 useState의 현재값으로,
+        // 세팅할 변수의 값을  현재값으로 받기위한 명령어
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="Minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="Minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="Hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="Hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Trun back" : "Invert"}{" "}
+          </button>
+        </div>
+      );
+    }
+
+    function KmToMiles() {
+      const [kmMile, setKmMile] = React.useState(0);
+      const [inputkmMile, setinputkmMile] = React.useState(false);
+
+      const kmMileOnchange = (event) => {
+        setKmMile(event.target.value);
+      };
+      const reset2 = () => setKmMile(0);
+
+      const onKmMile = () => {
+        reset2();
+        setinputkmMile((current) => !current);
+      };
+
+      return (
+        <div>
+          <h3>KM 2 M </h3>
+
+          <div>
+            <label htmlFor="miles">miles</label>
+            <input
+              value={inputkmMile ? kmMile * 1.609 : kmMile}
+              id="miles"
+              placeholder="miles"
+              type="number"
+              onChange={kmMileOnchange}
+              disabled={inputkmMile}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="km">km</label>
+            <input
+              value={inputkmMile ? kmMile : kmMile / 1.609}
+              id="km"
+              placeholder="km"
+              type="number"
+              onChange={kmMileOnchange}
+              disabled={!inputkmMile}
+            />
+          </div>
+
+          <button onClick={reset2}>reset2</button>
+          <button onClick={onKmMile}>
+            {inputkmMile ? " km 임" : "mile임"}{" "}
+          </button>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState("xx");
+      const onSelect = (event) => {
+        console.table(event.target.value);
+        setIndex(event.target.value);
+      };
+
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="xx">Select your units</option>
+            <option value="0">Minutes & Hours</option>
+            <option value="1">Km & Miles</option>
+          </select>
+          <hr />
+          {index === "xx" ? "plz Select your units" : null}
+          {index === "0" ? <MinutesToHours /> : null}
+          {index === "1" ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
