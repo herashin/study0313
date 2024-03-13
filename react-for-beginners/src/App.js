@@ -1,41 +1,40 @@
 import Button from "./Button";
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
+import { func } from "prop-types";
+
+function Hello() {
+  function destroyedFn() {
+    console.log("bye :(");
+  }
+
+  function effectFn() {
+    console.log("created :) ");
+    return destroyedFn;
+  }
+
+  // 같은 익명 함수를 만들어도,  ()=>  방식과 function 방식에는 코드의 간소화 차이가 분명함.
+  // 앞으로 ()=> 같은 방식을 사용하도록 연습할것
+  useEffect(() => {
+    console.log("hi :)");
+    return () => console.log("bye :(");
+  }, []);
+  useEffect(function () {
+    console.log("hi :)");
+    return function () {
+      console.log("bye :(");
+    };
+  }, []);
+  return <h1>Hello</h1>;
+}
 
 function App() {
-  const [counter, setvalue] = useState(0);
-
-  const [keyword, setKeyword] = useState("");
-
-  const onClick = () => setvalue((prev) => prev + 1);
-  //  const onChange = (event) => (setKeyword = event.target.value);
-  const onChange = (event) => setKeyword(event.target.value);
-  useEffect(() => {
-    console.log("I run only once.");
-  }, []);
-
-  useEffect(() => {
-    console.log("I run when 'keyword' changes.");
-  }, [keyword]);
-
-  useEffect(() => {
-    console.log("I run when 'counter' changes.");
-  }, [counter]);
-
-  useEffect(() => {
-    console.log("I run when 'keyword & counter' changes.");
-  }, [keyword, counter]);
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Search here..."
-      />
-
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me!!</button>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
