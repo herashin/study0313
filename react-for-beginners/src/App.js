@@ -1,40 +1,35 @@
 import Button from "./Button";
 import styles from "./App.module.css";
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import { func } from "prop-types";
-
-function Hello() {
-  function destroyedFn() {
-    console.log("bye :(");
-  }
-
-  function effectFn() {
-    console.log("created :) ");
-    return destroyedFn;
-  }
-
-  // 같은 익명 함수를 만들어도,  ()=>  방식과 function 방식에는 코드의 간소화 차이가 분명함.
-  // 앞으로 ()=> 같은 방식을 사용하도록 연습할것
-  useEffect(() => {
-    console.log("hi :)");
-    return () => console.log("bye :(");
-  }, []);
-  useEffect(function () {
-    console.log("hi :)");
-    return function () {
-      console.log("bye :(");
-    };
-  }, []);
-  return <h1>Hello</h1>;
-}
+import { useState } from "react";
 
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing((prev) => !prev);
+  const [toDo, setTodo] = useState("");
+  const [toDos, setTodos] = useState([]);
+
+  const onChange = (event) => setTodo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (toDo === "") {
+      return;
+    }
+    setTodo("");
+    setTodos((currentArray) => [toDo, ...currentArray]);
+  };
+  console.log(toDos);
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>My To Dos ({toDos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChange}
+          value={toDo}
+          type="text"
+          placeholder="Write your to do..."
+        />
+        <button>Add To Do</button>
+      </form>
     </div>
   );
 }
