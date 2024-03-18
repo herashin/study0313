@@ -15,7 +15,7 @@ function Detail() {
     setLoading(false);
     console.log(json);
   };
-  //gdgd
+  //gdgddsdssd
   useEffect(() => {
     getMovie();
   }, []);
