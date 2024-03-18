@@ -7,65 +7,52 @@ import { useEffect, useState } from "react";
 function App() {
   const [loading, setLoading] = useState(true);
 
-  const [coins, setCoins] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-  const [dollar, setDollar] = useState(0);
-  const [btcPrice, setBtcPrice] = useState(null);
-  console.log(btcPrice);
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+      )
+    ).json();
 
-  const selectOnchange = (event) => {
-    setBtcPrice(coins[event.target.value]);
+    setMovies(json.data.movies);
+    setLoading(false);
   };
-
-  const onChange = (event) => {
-    setDollar(event.target.value);
-  };
-
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      //fetchdata("/users")
-      .then((response) => response.json())
-      .then((json) => {
-        setCoins(json);
-        setLoading(false);
-        setBtcPrice(json[0]);
-      });
-
-    // fetch에 url 삽입가능
-    // cors 에러 확인 , http-proxy-middleware 설치 후  setupProxy.js 파일 생성으로 해결
-    /*  -- 과제 
-     input 생성 후 달러를 입력하면, 선택한 코인을 얼마나 살 수 있는지 알려주는 기능
-     */
+    getMovies();
+    // fetch(
+    //   `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
+    // )
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     setMovies(json.data.movies);
+    //     setLoading(false);
+    //   });
   }, []);
+  console.log(movies);
   return (
     <div>
-      <h1>The coins! {loading ? "" : `(${coins.length})`} </h1>
-
       {loading ? (
-        <strong>loading...</strong>
+        <h1>Loding....</h1>
       ) : (
-        <select onChange={selectOnchange}>
-          {coins.map((coin, index) => (
-            <option key={coin.id} value={index}>
-              {coin.name} ({coin.symbol}) : $({coin.quotes.USD.price}) USD
-            </option>
-          ))}
-        </select>
-      )}
-      <div>
-        <input
-          value={dollar}
-          onChange={onChange}
-          type="number"
-          placeholder="달러"
-        />
+        <div>
+          {movies.map((movie) => (
+            <div key={movie.id}>
+              <img src={movie.medium_cover_image} />
+              <h2>{movie.title}</h2>
 
-        <hr />
-        <strong>
-          선택한 코인 가격 :{btcPrice.name} ({btcPrice.symbol}) :
-          {dollar / btcPrice.quotes.USD.price}
-        </strong>
-      </div>
+              <p>{movie.summary}</p>
+              <ul>
+                {movie.genres.map((lis) => (
+                  <li key={lis}>{lis} </li>
+                ))}
+              </ul>
+              <hr />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
