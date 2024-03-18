@@ -1,0 +1,7 @@
+.home_container {
+  display: flex;
+  overflow: hidden;
+}
+
+.home_container > div {
+}

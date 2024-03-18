@@ -11,11 +11,11 @@ function Detail() {
     const json = await (
       await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
     ).json();
-    setMovies(json.data.movies);
+    setMovies(json.data.movie);
     setLoading(false);
     console.log(json);
   };
-  //gdgddsdssd
+
   useEffect(() => {
     getMovie();
   }, []);
@@ -25,14 +25,16 @@ function Detail() {
         <h1>Loding....</h1>
       ) : (
         <div>
-          {movies.map((movie) => (
-            <div>
-              <img src={movie.medium_cover_image} />
-              <h3>{movie.title}</h3>
-              <p>{movie.summary}</p>
-              <p>{movie.genres}</p>
-            </div>
-          ))}
+          <div>
+            <img src={movies.medium_cover_image} />
+            <h3>{movies.title}</h3>
+            <p>{movies.summary}</p>
+            <ul>
+              {movies.genres.map((lis) => (
+                <li key={lis}>{lis} </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </div>
