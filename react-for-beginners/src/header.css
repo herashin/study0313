@@ -124,7 +124,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
- a {
+a {
   color: #fff;
   text-decoration: none;
   outline: none;
@@ -171,8 +171,10 @@ nav ul li.active {
 
 /* nav bar 끝 */
 .contaner_back {
-  background-color: rgb(226, 172, 178);
+  /* background-color: rgb(226, 172, 178); */
+  background-color: black;
   padding-top: 1vw;
+  color: #fff;
 }
 .hr_bar {
   height: 30px;

@@ -1,7 +1,61 @@
 .home_container {
+  margin: 0 auto;
   display: flex;
   overflow: hidden;
+  width: 1300px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.home_container > div {
+.home_container > div > p {
+  width: 230px;
+  height: 80px px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.movie_box {
+  width: 230px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+/* === HEADING STYLE #3 === */
+.movie_box .movie_title {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5em;
+  padding-bottom: 15px;
+  position: relative;
+}
+.movie_box .movie_title:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 55px;
+  background-color: #111;
+}
+.movie_box .movie_title:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  height: 1px;
+  width: 95%;
+  /* max-width: 255px; */
+  background-color: #333;
+}
+
+.movie_title {
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.movie_title a {
+  color: #000;
 }

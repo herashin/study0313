@@ -3,6 +3,7 @@ import Home from "./routes/Home";
 import Detail from "./routes/Detail";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Best_slide from "./routes/Best_slide";
 
 function App() {
   const [tabs, setTab] = useState("home");
@@ -30,11 +31,13 @@ function App() {
         </nav>
         <div className="hr_bar"></div>
       </div>
+
       <Switch>
         <Route path="/Movie/:id">
           <Detail />
         </Route>
         <Route path="/">
+          <Best_slide />
           <Home />
         </Route>
       </Switch>

@@ -7,9 +7,9 @@ function Movie(/* prop object */ { id, cover_image, title, summary, genres }) {
     위 prop들은 내 마음대로 정의해도 됨. 
     */
   return (
-    <div>
+    <div className="movie_box">
       <img src={cover_image} />
-      <h2>
+      <h2 className="movie_title">
         <Link to={`/movie/${id}`}>{title}</Link>
         {/* Link  to=  기능으로 도메인경로를 변경 가능하며,`/movie/${id}`  이런식 표기로 아이디값을 보낼 수 있다. */}
       </h2>
