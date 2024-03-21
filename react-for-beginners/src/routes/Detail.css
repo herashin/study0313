@@ -1,0 +1,28 @@
+.detail_wrap {
+}
+
+.detail_contaner {
+  margin: 0 auto;
+  width: 70vw;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+.detail_back_box > h2 {
+  font-size: 3vw;
+}
+
+.detail_back_box > img {
+  display: block;
+  margin: 0 auto;
+}
+
+.detail_back_box > p {
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  width: 96%;
+  padding: 2%;
+  text-align: center;
+}
