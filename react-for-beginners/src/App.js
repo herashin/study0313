@@ -24,7 +24,11 @@ function App() {
               <Link to="/">Home</Link>
             </li>
 
-            <li>두번째 메뉴</li>
+            <li>
+              <a target="_blank" href="https://github.com/herashin/study0313">
+                developer git hube
+              </a>
+            </li>
 
             <li>세번째 메뉴</li>
           </ul>

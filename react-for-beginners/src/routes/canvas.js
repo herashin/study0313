@@ -1,8 +1,7 @@
 export function getAverColor(imageElement, ratio) {
   const canvas = document.createElement("canvas");
-
-  // let width = (canvas.width = imageElement.naturlWidth);
-  // let height = (canvas.height = imageElement.naturlHeight);
+  let width = (canvas.width = imageElement.naturlWidth);
+  let height = (canvas.height = imageElement.naturlHeight);
 
   const context = canvas.getContext("2d");
   context.drawImage(imageElement, 0, 0);

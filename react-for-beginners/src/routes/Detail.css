@@ -5,19 +5,37 @@
   background-position: center;
   background-size: cover;
 }
-
-.detail_back_box > h2 {
-  font-size: 3vw;
-}
-
-.detail_back_box > img {
+.detail_img {
   display: block;
   margin: 0 auto;
 }
 
-.detail_back_box > p {
+.detail_back_box {
+  width: 100%;
+  color: #fff;
+
+  padding: 0 0 10vw;
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.box_area {
+  width: 100%;
+
+  margin: 2% auto;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.box_area > h2 {
+  font-size: 3vw;
+}
+
+.box_area > img {
+  display: block;
+  margin: 0 auto;
+}
+
+.box_area > p {
   color: #fff;
   width: 96%;
   padding: 2%;
