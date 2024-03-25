@@ -2,17 +2,17 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import style from "./Detail.css";
 import { useColor } from "color-thief-react";
-
+import { getAverColor } from "./canvas";
 function Detail() {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState(null);
-  const [textColorData, setTextColorData] = useState("#112233"); // 변수 이름 변경
 
-  const largeCoverRef = useRef(null); // 요소에 대한 ref 생성
-
-  const [src, setSrc] = useState(""); // src를 저장할 state 생성
+  useEffect(() => {
+    const { R, G, B } = getAverColor(); // canvas.js 파일에서 배경색을 변경하는 함수를 호출하여 색상 값을 가져옴
+    document.body.style.background = `rgb( ${R}, ${G}, ${B} )`; // 색상 값을 사용하여 배경색을 변경
+  }, []); // 컴포넌트가 처음 렌더링 될 때 한 번만 실행
 
   useEffect(() => {
     const getMovie = async () => {
@@ -24,7 +24,6 @@ function Detail() {
         setMovies(json.data.movie);
         //    setTextColorData(json.data.movie);
         setLoading(false);
-        setSrc(json.data.movie.large_cover_image);
       } catch (error) {
         console.error("Error fetching movie:", error);
       }
@@ -33,38 +32,33 @@ function Detail() {
     getMovie();
   }, [id]);
 
-  // useColor 훅을 useEffect 밖으로 이동
   const {
-    data: textColor,
+    data: colors,
     loading: colorLoading,
     error: colorError,
-  } = useColor(src ? src : null, "rgbString", {
-    crossOrigin: "anonymous",
-    quality: 10,
-  });
-  useEffect(() => {
-    if (textColor && !colorLoading && !colorError) {
-      setTextColorData(textColor);
-    }
-  }, [textColor, colorLoading, colorError]);
+  } = useColor(
+    movies?.large_cover_image, // 이미지 URL
+    "rgbString" // 추출된 색상 포맷
+  );
+  console.log(colors);
   return (
     <div>
       {loading ? (
         <h1>Loding....</h1>
       ) : (
-        <div className="detail_wrap" style={{ backgroundColor: textColorData }}>
-          <p>textColorData : {textColorData}</p>
+        <div className="detail_wrap">
+          <p></p>
           <div className="detail_contaner">
-            <img ref={largeCoverRef} src={movies.large_cover_image} />
+            <img className="detail_img" src={movies.large_cover_image} />
             <div
               className="detail_back_box"
               style={{
                 backgroundImage: `url( ${movies.background_image_original}  )`,
               }}
             >
-              <h2 style={{ color: textColorData }}>{movies.title}</h2>
-              <p style={{ color: textColorData }}>{movies.description_intro}</p>
-              <ul style={{ color: textColorData }}>
+              <h2>{movies.title}</h2>
+              <p>{movies.description_intro}</p>
+              <ul>
                 {movies.genres.map((lis) => (
                   <li key={lis}>{lis} </li>
                 ))}
